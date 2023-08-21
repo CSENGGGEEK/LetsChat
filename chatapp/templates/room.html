@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lets Chat</title>
+</head>
+<body>
+    <input type="text" name="name" id="name"><br>
+    <button type="submit" id="data"></button>
+</body>
+
+<script>
+
+    document.getElementById("data").addEventListener(
+        "click",
+        ()=>{
+            let name = document.getElementById("name");
+            let socket = new WebSocket("ws://127.0.0.1:8000/chat");
+            // Event listener for when the connection is opened
+            socket.addEventListener('open', (event) => {
+                alert('WebSocket connection opened');
+
+                // Data to send
+                const dataToSend = {
+                    name : 'Hello, WebSocket server!'
+                };
+
+            // Convert the data to JSON and send it
+            socket.send(JSON.stringify(dataToSend));
+});
+        }
+    )
+</script>
+</html>
